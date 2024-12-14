@@ -1,4 +1,4 @@
-from src.irisdataprediction.entity.config_entity import DataIngestionConfig
+from src.irisdataprediction.entity.config_entity import (DataIngestionConfig,DataValidationConfig)
 from src.irisdataprediction.constants import *
 from src.irisdataprediction.utils.common import read_yaml, create_directories
 
@@ -24,7 +24,7 @@ class ConfigurationManager:
 
         #create directories
         create_directories([config.root_dir])
-        logger.info(f"<<<<<< subdirectories created for artifacts Ingestion >>>>>>")
+        logger.info(f"<<<<<< root directory created for artifacts Ingestion >>>>>>")
 
         #return created directories for file read, write and content manipulation
         data_ingestion_config=DataIngestionConfig(
@@ -36,3 +36,19 @@ class ConfigurationManager:
         )
        
         return data_ingestion_config
+    
+    def get_data_validation_config(self)->DataValidationConfig:
+        config=self.config.data_validation
+        schema= self.schema.COLUMNS
+
+        create_directories([config.root_dir])
+        logger.info(f"<<<<<< root directory created for artifacts Validation >>>>>>")
+
+        data_validation_config=DataValidationConfig(
+            root_dir= config.root_dir,
+            STATUS_FILE=config.STATUS_FILE,
+            unzip_data_dir=config.unzip_data_dir,
+            all_schema=schema
+        )
+
+        return data_validation_config
