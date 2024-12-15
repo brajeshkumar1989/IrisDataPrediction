@@ -1,4 +1,4 @@
-from src.irisdataprediction.entity.config_entity import (DataIngestionConfig,DataValidationConfig)
+from src.irisdataprediction.entity.config_entity import (DataIngestionConfig,DataValidationConfig,DataTransformationConfig)
 from src.irisdataprediction.constants import *
 from src.irisdataprediction.utils.common import read_yaml, create_directories
 
@@ -42,13 +42,23 @@ class ConfigurationManager:
         schema= self.schema.COLUMNS
 
         create_directories([config.root_dir])
-        logger.info(f"<<<<<< root directory created for artifacts Validation >>>>>>")
+        create_directories([config.image_path])
 
         data_validation_config=DataValidationConfig(
             root_dir= config.root_dir,
             STATUS_FILE=config.STATUS_FILE,
             unzip_data_dir=config.unzip_data_dir,
-            all_schema=schema
+            all_schema=schema,
+            image_path=config.image_path
         )
 
         return data_validation_config
+    
+
+    def get_data_transformation_config(self)->DataTransformationConfig:
+        config= self.config.data_transformation
+        create_directories([config.root_dir])
+
+        data_transformation_config= DataTransformationConfig(root_dir=config.root_dir, data_path=config.data_path)
+
+        return data_transformation_config

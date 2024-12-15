@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 from box.exceptions import BoxValueError
 from src.irisdataprediction.exception import IrisPredictionException
-
+import matplotlib.pyplot as plt
 
 @ensure_annotations
 
@@ -99,3 +99,19 @@ def load_bin(path: Path) -> Any:
     data=joblib.load(path)
     logger.info(f"binary file loaded from:{path}")
     return data
+
+
+# @ensure_annotations
+def save_figure(fig_id: str,image_path: Path, tight_layout :bool, fig_extension: str, resolution: int):
+    plt.rc('font', size=14)
+    plt.rc('axes', labelsize=14, titlesize=14)
+    plt.rc('legend', fontsize=14)
+    plt.rc('xtick',labelsize=10)
+    plt.rc('ytick',labelsize=10)
+    # path=image_path/ f"{fig_id}.{fig_extension}"
+    path=os.path.join(image_path,f"{fig_id}.{fig_extension}")
+    if tight_layout:
+        plt.tight_layout()
+    plt.savefig(path, format=fig_extension, dpi=resolution)
+    logger.info(f"Created directory at: {image_path}")
+    

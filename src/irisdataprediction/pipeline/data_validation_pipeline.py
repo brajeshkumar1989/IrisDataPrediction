@@ -10,6 +10,7 @@ class DataValidationTrainingPipeline:
         data_validation_config= config.get_data_validation_config()
         data_validation=DataValidation(config=data_validation_config)
         data_validation.validate_all_columns()
+        data_validation.eda()
         data_validation.validate_null_value()
 
         
