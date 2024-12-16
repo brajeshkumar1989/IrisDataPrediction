@@ -3,6 +3,10 @@ COLUMNS:
   sepal_width: float64
   petal_length: float64
   petal_width: float64
+  
+
+TARGET_FEATURE:
+  name: class
 
 TARGET_COLUMN:
-  name: class
+  name: name

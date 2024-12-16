@@ -4,7 +4,7 @@ from src.irisdataprediction.exception import IrisPredictionException
 from src.irisdataprediction.pipeline.data_ingestion_pipeline import DataIngestionTraningPipeline
 from src.irisdataprediction.pipeline.data_validation_pipeline import DataValidationTrainingPipeline
 from src.irisdataprediction.pipeline.data_transformation_pipeline import DataTransformationPipeline
-
+from src.irisdataprediction.pipeline.model_training_pipeline import ModelTrainerTrainingPipeline
 
 
 # Data Ingestion
@@ -43,3 +43,16 @@ try:
     logger.info(f"<<<<<< stage {STAGE_NAME} completed >>>>>>")
 except Exception as e:
     raise IrisPredictionException(e, sys)
+
+
+# Model Training
+STAGE_NAME="Model Training Stage"
+
+try:
+    logger.info(f"<<<<<< stage {STAGE_NAME} started. >>>>>>")
+    model_trainer=ModelTrainerTrainingPipeline()
+    model_trainer.initiate_model_training()
+    logger.info(f"<<<<<< stage {STAGE_NAME} completed >>>>>>")
+except Exception as e:
+    raise IrisPredictionException(e, sys)
+
