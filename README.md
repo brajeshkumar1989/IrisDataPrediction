@@ -51,11 +51,10 @@ This is one of the earliest datasets used in the literature on classification me
 1. Data ingestion
 2. Data validation
 3. Data Transformation
-
-## InProgress:
-
-1. Model training
+4. Model training
    a. compare different model
    b. find best parameters and model
 
-2. Model Evaluation
+## InProgress:
+
+1. Model Evaluation
