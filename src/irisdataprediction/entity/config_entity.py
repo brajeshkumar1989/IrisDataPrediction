@@ -32,3 +32,10 @@ class ModelTrainerConfig:
     alpha: float
     l1_ratio: float
     target_column: str
+
+@dataclass
+class ClassificationMetric:
+    f1_score: float
+    precision_score: float
+    recall_score: float
+    

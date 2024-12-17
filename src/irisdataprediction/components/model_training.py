@@ -11,9 +11,13 @@ from sklearn.ensemble import (
 
 from src.irisdataprediction.config.configuration import ModelTrainerConfig
 
+from src.irisdataprediction.utils.ml_utils.metric.classification_metric import get_classification_score
+
 from sklearn.metrics import r2_score
 import joblib
-
+import mlflow
+import dagshub
+dagshub.init(repo_owner="brajeshkumar1989", repo_name=" IrisDataPrediction", mlflow=True)
 
 class ModelTrainer:
     def __init__(self, config:ModelTrainerConfig):
@@ -21,6 +25,16 @@ class ModelTrainer:
         self.report_train={}
         #self.report_test={}
 
+    def track_mlflow(self,best_model, classificationmetric):
+        with mlflow.start_run():
+            f1_score=classificationmetric.f1_score
+            precision_score=classificationmetric.precision_score
+            recall_score=classificationmetric.recall_score
+
+            mlflow.log_metric("f1_score", f1_score)
+            mlflow.log_metric("precision", precision_score)
+            mlflow.log_metric("recall_score", recall_score)
+            mlflow.sklearn.log_model(best_model, "model")
 
     
     
@@ -52,7 +66,7 @@ class ModelTrainer:
 
 
 
-    def train_model(self,train_X, train_y):
+    def train_model(self,train_X, train_y,test_X, test_y):
         models={
             "Random Forest": RandomForestClassifier(verbose=1),
             "Decision Tree": DecisionTreeClassifier(),
@@ -88,7 +102,7 @@ class ModelTrainer:
 
         }
 
-        self.evaluate_models(train_X=train_X, train_y=train_y, models=models, param=params)
+        model_report:dict=self.evaluate_models(train_X=train_X, train_y=train_y, models=models, param=params)
 
 
         #to get the best model score from dict
@@ -104,6 +118,20 @@ class ModelTrainer:
         #get the best model 
         best_model= models[best_model_name]
 
+        y_train_pred= best_model.predict(train_X)
+
+        classification_train_metric=get_classification_score(y_true=train_y, y_pred=y_train_pred)
+
+        ## track the experiment with mlflow
+        self.track_mlflow(best_model, classification_train_metric)
+
+        ## test data
+        y_test_pred=best_model.predict(test_X)
+        classification_test_metric= get_classification_score(y_true=test_y, y_pred=y_test_pred)
+
+        self.track_mlflow(best_model, classification_test_metric)
+
+        #save model
         joblib.dump(best_model, os.path.join(self.config.root_dir,self.config.model_name))       
 
 
@@ -114,10 +142,10 @@ class ModelTrainer:
         test_data=pd.read_csv(self.config.test_data_path)
 
         train_X= train_data.drop([self.config.target_column], axis=1)
-        #test_X= test_data.drop([self.config.target_column], axis=1)
+        test_X= test_data.drop([self.config.target_column], axis=1)
         train_y=train_data[[self.config.target_column]]
-        #test_y=test_data[[self.config.target_column]]
+        test_y=test_data[[self.config.target_column]]
 
-        model_trainer_artifacts=self.train_model(train_X, train_y)
+        model_trainer_artifacts=self.train_model(train_X, train_y, test_X, test_y)
 
         return model_trainer_artifacts
