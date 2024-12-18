@@ -80,7 +80,8 @@ precision: 96%
 4. Model training
    a. compare different model
    b. find best parameters and model
+5. Model Evaluation
 
 ## InProgress:
 
-1. Model Evaluation
+1. Model Tuning
