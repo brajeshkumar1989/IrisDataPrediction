@@ -17,7 +17,7 @@ from sklearn.metrics import r2_score
 import joblib
 import mlflow
 import dagshub
-dagshub.init(repo_owner="brajeshkumar1989", repo_name=" IrisDataPrediction", mlflow=True)
+dagshub.init(repo_owner="brajeshkumar1989", repo_name="IrisDataPrediction", mlflow=True)
 
 class ModelTrainer:
     def __init__(self, config:ModelTrainerConfig):
