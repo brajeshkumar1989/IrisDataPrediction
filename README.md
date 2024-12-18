@@ -12,20 +12,22 @@ Out of three classes two are linearly separable and one is separable non linearl
 
 ### Dataset Information
 
----
-
-Each instance is a plant
+##### Each instance is a plant
 
 #### Additional information
 
----
+## This is one of the earliest datasets used in the literature on classification methods and widely used in statistics and machine learning. The data set contains 3 classes of 50 instances each, where each class refers to a type of iris plant. One class is linearly separable from the other 2; the latter are not linearly separable from each other.
 
-#### Evaluation score : Seems Overfitting , need to check what else can improve model accuracy score.
+#### Evaluation score :
+
+Seems Overfitting , need to check what else can improve model accuracy score.
 
 Test :
 
 recall_score: 71%
+
 f1_score: 69%
+
 precision: 71%
 
 ![alt model test result](https://github.com/brajeshkumar1989/IrisDataPrediction/blob/main/images/Test_result.PNG)
@@ -35,7 +37,9 @@ precision: 71%
 Train
 
 recall_score: 95%
+
 f1_score: 95%
+
 precision: 96%
 
 <hr/>
@@ -43,7 +47,6 @@ precision: 96%
 ![alt model train result](https://github.com/brajeshkumar1989/IrisDataPrediction/blob/main/images/Train_result.PNG)
 
 <hr/>
-This is one of the earliest datasets used in the literature on classification methods and widely used in statistics and machine learning. The data set contains 3 classes of 50 instances each, where each class refers to a type of iris plant. One class is linearly separable from the other 2; the latter are not linearly separable from each other.
 
 ### Exploratory Data Analysis
 
