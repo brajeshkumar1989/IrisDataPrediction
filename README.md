@@ -22,7 +22,7 @@ This is one of the earliest datasets used in the literature on classification me
 
 Seems Overfitting , need to check what else can improve model accuracy score.
 
-Test :
+##### Test :---- When deleted features based on correlation heat map of independent feature.
 
 recall_score: 71%
 
@@ -30,17 +30,37 @@ f1_score: 69%
 
 precision: 71%
 
+##### Test ----included all independent features.
+
+recall_score: 89%
+
+f1_score: 90%
+
+precision: 90%
+
+<hr/>
+
 ![alt model test result](https://github.com/brajeshkumar1989/IrisDataPrediction/blob/main/images/Test_result.PNG)
 
 <hr/>
 
-Train
+##### Train ----When deleted features based on correlation heat map of independent feature.
 
 recall_score: 95%
 
 f1_score: 95%
 
 precision: 96%
+
+<hr/>
+
+##### Train ----included all independent features.
+
+recall_score: 100%
+
+f1_score: 100%
+
+precision: 100%
 
 <hr/>
 
@@ -84,4 +104,8 @@ precision: 96%
 
 ## InProgress:
 
-1. Model Tuning
+1. deployment and uiux
+
+##### author:
+
+#### Brajesh kumar
